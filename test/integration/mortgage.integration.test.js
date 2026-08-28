@@ -1,5 +1,6 @@
 const request = require('supertest');
 const app = require('../../src/app');
+const cmhcService = require('../../src/services/cmhc.service');
 
 describe('Mortgage Calculator Integration Tests', () => {
   describe('POST /mortgages/calculate', () => {
@@ -199,6 +200,32 @@ describe('Mortgage Calculator Integration Tests', () => {
         .expect(400);
 
       expect(response.body.error).toContain('paymentSchedule must be one of');
+    });
+    it('should return 500 Internal Server Error when an unexpected exception occurs', async () => {
+      // Intentionally mock cmhcService to throw an error, since mortgage.service accesses it as a method on the object
+      jest.spyOn(cmhcService, 'calculatePremium').mockImplementation(() => {
+        throw new Error('Simulated Unexpected Error');
+      });
+
+      const payload = {
+        propertyPrice: 300000,
+        downPayment: 100000,
+        annualInterestRate: 5,
+        amortizationYears: 25,
+        paymentSchedule: 'monthly'
+      };
+
+      const response = await request(app)
+        .post('/mortgages/calculate')
+        .send(payload)
+        .expect('Content-Type', /json/)
+        .expect(500);
+
+      expect(response.body).toHaveProperty('error');
+      expect(response.body.error).toBe('Internal server error');
+
+      // Restore the mock so it doesn't break other tests
+      cmhcService.calculatePremium.mockRestore();
     });
 
   });

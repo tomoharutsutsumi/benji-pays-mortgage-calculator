@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benji Pays - Mortgage Calculator</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Mortgage Calculator</h1>
+        
+        <form id="mortgage-form">
+            <div class="form-group">
+                <label for="propertyPrice">Property Price ($):</label>
+                <input type="number" id="propertyPrice" required min="1" step="any" placeholder="e.g., 500000">
+            </div>
+
+            <div class="form-group">
+                <label for="downPayment">Down Payment ($):</label>
+                <input type="number" id="downPayment" required min="0" step="any" placeholder="e.g., 100000">
+            </div>
+
+            <div class="form-group">
+                <label for="annualInterestRate">Annual Interest Rate (%):</label>
+                <input type="number" id="annualInterestRate" required min="0.01" max="99.99" step="any" placeholder="e.g., 5">
+            </div>
+
+            <div class="form-group">
+                <label for="amortizationYears">Amortization Period (Years):</label>
+                <select id="amortizationYears" required>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="25" selected>25</option>
+                    <option value="30">30</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="paymentSchedule">Payment Schedule:</label>
+                <select id="paymentSchedule" required>
+                    <option value="monthly" selected>Monthly</option>
+                    <option value="bi-weekly">Bi-weekly</option>
+                    <option value="accelerated-bi-weekly">Accelerated Bi-weekly</option>
+                </select>
+            </div>
+
+            <button type="submit">Calculate Payment</button>
+        </form>
+
+        <div id="result-container" class="hidden">
+            <h2>Calculated Payment</h2>
+            <p id="payment-result"></p>
+        </div>
+
+        <div id="error-container" class="hidden">
+            <h2>Error</h2>
+            <p id="error-message"></p>
+        </div>
+    </div>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>

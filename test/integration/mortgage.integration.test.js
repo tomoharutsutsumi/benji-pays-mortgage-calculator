@@ -68,7 +68,7 @@ describe('Mortgage Calculator Integration Tests', () => {
         .expect(400);
 
       expect(response.body).toHaveProperty('error');
-      expect(response.body.error).toBe('Down payment is below the minimum required amount.');
+      expect(response.body.error).toBe('Down payment is below the minimum required amount of $15000.');
     });
 
     it('should return 400 Bad Request for an invalid amortization period', async () => {
@@ -161,7 +161,7 @@ describe('Mortgage Calculator Integration Tests', () => {
         .expect('Content-Type', /json/)
         .expect(400);
 
-      expect(response.body.error).toBe('Down payment is below the minimum required amount.');
+      expect(response.body.error).toBe('Down payment is below the minimum required amount of $400000.');
     });
     it('should return 200 and correct payment for bi-weekly schedule', async () => {
       const payload = {

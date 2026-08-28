@@ -79,7 +79,7 @@ describe('Mortgage Validator', () => {
 
     it('should return error if down payment is below minimum required', () => {
       // For 600k, min down payment is 35k
-      expect(getValidationErrors({ ...validBaseInput, propertyPrice: 600000, downPayment: 30000 })).toBe("Down payment is below the minimum required amount.");
+      expect(getValidationErrors({ ...validBaseInput, propertyPrice: 600000, downPayment: 30000 })).toBe("Down payment is below the minimum required amount of $35000.");
     });
 
     it('should return error if 30-year amortization has < 20% down payment', () => {

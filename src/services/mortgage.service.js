@@ -1,30 +1,32 @@
-const calculateMortgage = ({
-    propertyPrice,
-    downPayment,
-    annualInterestRate,
-    amortizationYears,
-    paymentSchedule,
-}) => {
-    // Mortgage calculation logic will go here.
+const cmhcService = require("./cmhc.service");
+const paymentStrategies = require("./payment/paymentStrategies");
 
-    const baseMortgage = propertyPrice - downPayment
-    const downPaymentRatio = (downPayment / propertyPrice) * 100
-    const cmhcInsurance = baseMortgage * premiumRate(downPaymentRatio)
-    const principal = baseMortgage + cmhcInsurance
-    const periodicInterestRate = annualInterestRate / paymentsPerYear(paymentSchedule)
-    const numberOfPayments = amortizationYears * paymentsPerYear(paymentSchedule)
-    const mortgagePayment = 
-        principal * 
-        (
-            (periodicInterestRate * Math.pow(1 + periodicInterestRate, numberOfPayments)) / 
-            (Math.pow(1 + periodicInterestRate, numberOfPayments) - 1)
-        );
+function calculateMortgage(input) {
+  const baseMortgage =
+    input.propertyPrice - input.downPayment;
 
-    return {
-        mortgagePayment
-    };
-};
+  const cmhcInsurance =
+    cmhcService.calculatePremium(
+      input.propertyPrice,
+      input.downPayment
+    );
+
+  const principal =
+    baseMortgage + cmhcInsurance;
+
+  const strategy =
+    paymentStrategies[input.paymentSchedule];
+
+  const mortgagePayment =
+    strategy.calculate(
+      principal,
+      input.annualInterestRate,
+      input.amortizationYears
+    );
+
+  return { mortgagePayment };
+}
 
 module.exports = {
-    calculateMortgage,
+  calculateMortgage,
 };

@@ -1,25 +1,13 @@
-const calculateMortgage = (req, res) => {
-    const {
-        propertyPrice,
-        downPayment,
-        annualInterestRate,
-        amortizationYears,
-        paymentSchedule,
-    } = req.body;
+const {
+    calculateMortgage,
+} = require("../services/mortgage.service");
 
-    console.log({
-        propertyPrice,
-        downPayment,
-        annualInterestRate,
-        amortizationYears,
-        paymentSchedule,
-    });
+const calculateMortgageHandler = (req, res) => {
+    const result = calculateMortgage(req.body);
 
-    res.status(200).json({
-        message: "Received",
-    });
+    res.status(200).json(result);
 };
 
 module.exports = {
-    calculateMortgage,
+    calculateMortgageHandler,
 };

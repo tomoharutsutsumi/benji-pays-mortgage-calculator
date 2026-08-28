@@ -1,8 +1,8 @@
 const express = require("express");
-const { calculateMortgage } = require("../controllers/mortgage.controller");
+const { calculateMortgageHandler } = require("../controllers/mortgage.controller");
 
 const router = express.Router();
 
-router.post("/calculate", calculateMortgage);
+router.post("/calculate", calculateMortgageHandler);
 
 module.exports = router;

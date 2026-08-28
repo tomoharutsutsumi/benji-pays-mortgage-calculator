@@ -62,8 +62,11 @@ describe('Mortgage Validator', () => {
       expect(getValidationErrors({ ...validBaseInput, downPayment: 600000 })).toBe("downPayment must be less than propertyPrice.");
     });
 
-    it('should return error for invalid annualInterestRate', () => {
-      expect(getValidationErrors({ ...validBaseInput, annualInterestRate: 0 })).toBe("annualInterestRate must be a number greater than 0.");
+    it('should return error for invalid annualInterestRate (non-positive or >= 100)', () => {
+      const errMsg = "annualInterestRate must be a positive number between 0 and 100 (e.g., 5 for 5%).";
+      expect(getValidationErrors({ ...validBaseInput, annualInterestRate: 0 })).toBe(errMsg);
+      expect(getValidationErrors({ ...validBaseInput, annualInterestRate: -5 })).toBe(errMsg);
+      expect(getValidationErrors({ ...validBaseInput, annualInterestRate: 150 })).toBe(errMsg);
     });
 
     it('should return error for invalid amortizationYears', () => {

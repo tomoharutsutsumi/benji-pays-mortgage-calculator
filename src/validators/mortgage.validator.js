@@ -38,8 +38,8 @@ function getValidationErrors(input) {
   if (downPayment >= propertyPrice) {
     return "downPayment must be less than propertyPrice.";
   }
-  if (typeof annualInterestRate !== 'number' || annualInterestRate <= 0) {
-    return "annualInterestRate must be a number greater than 0.";
+  if (typeof annualInterestRate !== 'number' || annualInterestRate <= 0 || annualInterestRate >= 100) {
+    return "annualInterestRate must be a positive number between 0 and 100 (e.g., 5 for 5%).";
   }
 
   // Enums and Allowed Values

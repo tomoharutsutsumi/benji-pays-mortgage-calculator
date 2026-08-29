@@ -28,6 +28,10 @@ function isValid30YearAmortization(
 }
 
 function getValidationErrors(input) {
+  if (!input || Object.keys(input).length === 0) {
+    return "Request body is required and must be valid JSON.";
+  }
+
   const {
     propertyPrice,
     downPayment,

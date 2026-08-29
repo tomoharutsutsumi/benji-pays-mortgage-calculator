@@ -48,6 +48,18 @@ describe("Mortgage Validator", () => {
       paymentSchedule: "monthly",
     };
 
+    it("should return error if input is missing or empty", () => {
+      expect(getValidationErrors()).toBe(
+        "Request body is required and must be valid JSON.",
+      );
+      expect(getValidationErrors({})).toBe(
+        "Request body is required and must be valid JSON.",
+      );
+      expect(getValidationErrors(null)).toBe(
+        "Request body is required and must be valid JSON.",
+      );
+    });
+
     it("should return null for valid inputs", () => {
       expect(getValidationErrors(validBaseInput)).toBeNull();
     });

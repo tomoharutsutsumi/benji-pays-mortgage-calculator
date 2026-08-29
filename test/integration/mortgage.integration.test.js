@@ -132,6 +132,19 @@ describe("Mortgage Calculator Integration Tests", () => {
       expect(response.body.mortgagePayment).toBeCloseTo(584.59, 1);
     });
 
+    it("should return 400 Bad Request when the request body is empty", async () => {
+      const response = await request(app)
+        .post("/mortgages/calculate")
+        .send({})
+        .expect("Content-Type", /json/)
+        .expect(400);
+
+      expect(response.body).toHaveProperty("error");
+      expect(response.body.error).toBe(
+        "Request body is required and must be valid JSON.",
+      );
+    });
+
     it("should return 400 Bad Request when propertyPrice is not a number", async () => {
       const payload = {
         propertyPrice: "300000", // Invalid type

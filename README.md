@@ -2,6 +2,39 @@
 
 A take-home assignment to build a robust mortgage calculator API and UI.
 
+## How to Run Locally
+
+### Prerequisites
+- Node.js
+- npm
+
+### Installation
+1. Clone the repository and navigate to the project directory.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+### Running the Application
+To start the application in development mode (with automatic restarts):
+```bash
+npm run dev
+```
+
+To start the application normally:
+```bash
+npm start
+```
+
+The server will start on port 3000 by default. You can access the UI and API locally at `http://localhost:3000`.
+
+### Running Tests
+To run the comprehensive Jest test suite:
+```bash
+npm test
+```
+
+
 ## Assumptions
 
 ### 30-Year Amortization Eligibility

@@ -53,7 +53,8 @@ function getValidationErrors(input) {
   // Minimum Down Payment Check
   const minDownPayment = calculateMinimumDownPayment(propertyPrice);
   if (downPayment < minDownPayment) {
-    return `Down payment is below the minimum required amount of $${minDownPayment}.`;
+    const formattedMin = parseFloat(minDownPayment.toFixed(2));
+    return `Down payment is below the minimum required amount of $${formattedMin}.`;
   }
 
   // 30-year Amortization Exception Check

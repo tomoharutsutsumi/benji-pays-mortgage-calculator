@@ -53,6 +53,7 @@ npm run lint
 The API strictly follows the provided CMHC guidelines based on the available input parameters:
 1. **Property Price and Down Payment:**
    - **Minimum Down Payment Check:** Validates that the down payment meets the minimum requirements (5% for the first $500k, 10% for the amount between $500k and $1.5M, and 20% for properties $1.5M or above).
+     * Properties priced at $1.5M or above require a minimum 20% down payment, as CMHC insurance is not available above this threshold.
    - **Premium Rate Calculation:** Determines the CMHC insurance premium rate (0%, 2.80%, 3.10%, or 4.00%) based on the down payment percentage.
    - **Total Principal:** Calculates the final mortgage principal by subtracting the down payment from the property price and adding the calculated CMHC insurance premium.
 2. **Amortization Period:**

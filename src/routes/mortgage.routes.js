@@ -1,5 +1,7 @@
 const express = require("express");
-const { calculateMortgageHandler } = require("../controllers/mortgage.controller");
+const {
+  calculateMortgageHandler,
+} = require("../controllers/mortgage.controller");
 const { validateMortgageInput } = require("../validators/mortgage.validator");
 
 const router = express.Router();

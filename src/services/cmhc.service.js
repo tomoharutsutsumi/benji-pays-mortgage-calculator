@@ -16,7 +16,7 @@ function getPremiumRate(downPaymentRatio) {
   ];
 
   const tier = PREMIUM_RATES.find(
-    ({ minPercent }) => downPaymentRatio >= minPercent
+    ({ minPercent }) => downPaymentRatio >= minPercent,
   );
 
   return tier.rate;

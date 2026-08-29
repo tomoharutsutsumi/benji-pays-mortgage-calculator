@@ -40,6 +40,12 @@ To automatically format the codebase using Prettier:
 npm run format
 ```
 
+### Linting
+To check for code quality and logical errors using ESLint:
+```bash
+npm run lint
+```
+
 
 ## Implementation Details & Assumptions
 
@@ -54,9 +60,9 @@ The API strictly follows the provided CMHC guidelines based on the available inp
 
 ### Omitted CMHC Surcharges & Exceptions (Due to Input Constraints)
 Certain CMHC rules mentioned in standard guidelines are intentionally omitted because the API's input specification does not provide the data required to evaluate them:
-- **Non-traditional Down Payments:** Surcharges for borrowed down payments are ignored (assumes traditional down payment).
-- **Self-Employed without Verified Income:** Surcharges for unverified income are ignored (assumes standard verified income).
-- **30-Year Amortization Exception:** The recent rule allowing a 30-year amortization for first-time home buyers or new builds with an insured mortgage (which would incur a +0.20% premium surcharge) is not implemented.
+1. **Non-traditional Down Payments:** Surcharges for borrowed down payments are ignored (assumes traditional down payment).
+2. **Self-Employed without Verified Income:** Surcharges for unverified income are ignored (assumes standard verified income).
+3. **30-Year Amortization Exception:** The recent rule allowing a 30-year amortization for first-time home buyers or new builds with an insured mortgage (which would incur a +0.20% premium surcharge) is not implemented.
 
 ### 30-Year Amortization Eligibility
 Because the API cannot determine if a user is a first-time home buyer or purchasing a newly-constructed home, an explicit assumption is placed in the validator: **a 30-year amortization is only allowed with a 20% or greater down payment.** All 30-year amortizations with less than 20% down payment will be rejected to prevent generating invalid insurance quotes.

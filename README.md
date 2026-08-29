@@ -34,11 +34,32 @@ To run the comprehensive Jest test suite:
 npm test
 ```
 
+### Code Formatting
+To automatically format the codebase using Prettier:
+```bash
+npm run format
+```
 
-## Assumptions
+
+## Implementation Details & Assumptions
+
+### CMHC Insurance Rules Considered
+The API strictly follows the provided CMHC guidelines based on the available input parameters:
+1. **Property Price and Down Payment:**
+   - **Minimum Down Payment Check:** Validates that the down payment meets the minimum requirements (5% for the first $500k, 10% for the amount between $500k and $1.5M, and 20% for properties $1.5M or above).
+   - **Premium Rate Calculation:** Determines the CMHC insurance premium rate (0%, 2.80%, 3.10%, or 4.00%) based on the down payment percentage.
+   - **Total Principal:** Calculates the final mortgage principal by subtracting the down payment from the property price and adding the calculated CMHC insurance premium.
+2. **Amortization Period:**
+   - Enforces a maximum 25-year amortization period for insured mortgages (down payment < 20%).
+
+### Omitted CMHC Surcharges & Exceptions (Due to Input Constraints)
+Certain CMHC rules mentioned in standard guidelines are intentionally omitted because the API's input specification does not provide the data required to evaluate them:
+- **Non-traditional Down Payments:** Surcharges for borrowed down payments are ignored (assumes traditional down payment).
+- **Self-Employed without Verified Income:** Surcharges for unverified income are ignored (assumes standard verified income).
+- **30-Year Amortization Exception:** The recent rule allowing a 30-year amortization for first-time home buyers or new builds with an insured mortgage (which would incur a +0.20% premium surcharge) is not implemented.
 
 ### 30-Year Amortization Eligibility
-For this assignment, a 30-year amortization is only allowed with a **20% or greater down payment**. The provided input specifications do not include the eligibility information (such as first-time home buyer or new construction status) required to evaluate an insured 30-year mortgage under the latest Canadian rules. Thus, an explicit assumption is placed in the validator enforcing the 20% down payment minimum for all 30-year amortizations.
+Because the API cannot determine if a user is a first-time home buyer or purchasing a newly-constructed home, an explicit assumption is placed in the validator: **a 30-year amortization is only allowed with a 20% or greater down payment.** All 30-year amortizations with less than 20% down payment will be rejected to prevent generating invalid insurance quotes.
 
 ## Test Coverage
 
